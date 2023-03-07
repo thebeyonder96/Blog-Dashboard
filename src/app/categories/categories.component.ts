@@ -1,26 +1,31 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore/';
+import { Component, OnInit } from '@angular/core';
+import { CategoryModel } from '../models/category';
+import { CategoryService } from '../service/category.service';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
 })
-export class CategoriesComponent {
-  constructor(private fs: AngularFirestore) {}
+export class CategoriesComponent implements OnInit {
+
+  categoryArray!:any;
+
+  constructor(private categoryService: CategoryService) {}
+
+  ngOnInit(): void {
+    this.categoryService.loadData().subscribe((d) => {
+      console.log(d);
+      this.categoryArray = d;
+    });
+  }
 
   onSubmit(formData: any) {
-    let categoryData = {
+    console.log(formData);
+    let categoryData: CategoryModel = {
       category: formData.value.category,
     };
-    this.fs
-      .collection('categories')
-      .add(categoryData)
-      .then(docRef => {
-        console.log(docRef);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.categoryService.saveData(categoryData);
+    formData.reset();
   }
 }
