@@ -38,6 +38,17 @@ export class CategoryService implements OnInit {
           });
         })
       )
+  }
 
+  update(id:any,editedData:any){
+    this.fs.collection('categories').doc(id).update(editedData).then(docRef=>{
+      this.toastr.success('Data Updated Successfully');
+    })
+  }
+
+  delete(id:any){
+    this.fs.collection('categories').doc(id).delete().then(docRef=>{
+    this.toastr.error('Data Deleted Successfully')
+    })
   }
 }

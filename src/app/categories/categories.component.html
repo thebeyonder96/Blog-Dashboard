@@ -1,8 +1,8 @@
 <section class="px-4 py-3 md:px-20">
   <div>
     <div class="bg-secondary text-primary px-4 py-3 shadow">
-      <h1 class="font-bold text-2xl md:text-5xl text-center">New Categories</h1>
-      <p class=" text-center">You can add new categories here</p>
+      <h1 class="font-bold text-2xl md:text-5xl text-center">{{formStatus}} Categories</h1>
+      <p class=" text-center">You can {{formStatus}} new categories here</p>
 
       <form class="mt-4 md:mt-6" #categoryForm = 'ngForm' (ngSubmit)="onSubmit(categoryForm)">
         <input
@@ -10,14 +10,14 @@
         type="text"
         placeholder="Add new categories..."
         name="category"
-        ngModel
+        [(ngModel)] = formCategory
         #addCategory="ngModel"
         required
         >
         <button *ngIf="categoryForm.invalid; else error" [disabled]="categoryForm.invalid"  class=" bg-[#02646793] text-secondary text-xs md:text-base px-2 py-2 mt-2 md:py-2 rounded shadow-md">Add Category</button>
         <ng-template #error>
           <button class="bg-primary text-secondary text-xs md:text-base px-2 py-2 mt-2 md:py-2 rounded shadow-md">
-            Add Category
+            {{formStatus}} Category
           </button>
         </ng-template>
       </form>
@@ -35,7 +35,10 @@
       <div *ngFor="let item of categoryArray;index as i" class="flex items-center justify-between px-20 py-3 shadow">
         <p>{{i+1}}</p>
         <p>{{item.data.category}}</p>
-        <div></div>
+        <div>
+          <button (click)="edit(item.data.category,item.id)" class="bg-yellow-500 text-nav font-bold px-4 py-2 mx-2 rounded"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit</button>
+          <button (click)="onDelete(item.id)" class="bg-red-500 text-nav font-bold px-4 py-2 mx-2 rounded"><i class="fa-solid fa-trash"></i>&nbsp; Delete</button>
+        </div>
       </div>
     </div>
   </div>
