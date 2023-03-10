@@ -53,8 +53,6 @@ export class NewPostComponent implements OnInit{
 
   onSubmit(){
     let splitted = this.postForm.value.category.split('-');
-    console.log(splitted);
-
 
     const postData:Post={
       title:this.postForm.value.title,
@@ -71,9 +69,9 @@ export class NewPostComponent implements OnInit{
       status:'new',
       createdAt:new Date()
     }
-    console.log(postData);
-
-    this.postService.uploadImage(this.selectedImg)
+    this.postService.uploadImage(this.selectedImg,postData)
+    this.postForm.reset();
+    this.imageSrc= '../../../assets/images/placeholder.webp';
   }
 
 
