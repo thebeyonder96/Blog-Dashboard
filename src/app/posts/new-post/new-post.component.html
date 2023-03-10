@@ -1,8 +1,8 @@
 <section class="container mx-auto">
   <div>
     <div class="bg-secondary text-primary px-4 py-3 shadow">
-      <h1 class="font-bold text-2xl md:text-5xl text-center"> All new post</h1>
-      <p class=" text-center">You can add your new posts here</p>
+      <h1 class="font-bold text-2xl md:text-5xl text-center"> {{formStatus}} post</h1>
+      <p class=" text-center">You can {{formStatus}} your new posts here</p>
 
       <form [formGroup]="postForm" class="mt-4 md:mt-6" #categoryForm='ngForm' (ngSubmit)="onSubmit()">
         <div class="grid">
@@ -54,7 +54,7 @@
         <div class="grid">
           <label class="px-4 font-bold py-1" for="">Content</label>
           <!-- <textarea class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" name="" id="" cols="30" rows="10"></textarea> -->
-          <angular-editor formControlName="content" class="outline-none px-6 py-5 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow"></angular-editor>
+          <angular-editor height="100px" formControlName="content" class="outline-none px-6 py-5 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow"></angular-editor>
           <div *ngIf="fc['content'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
             <span *ngIf="fc['content'].touched && fc['content'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Content is
               required</span>

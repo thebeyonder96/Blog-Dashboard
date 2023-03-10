@@ -56,4 +56,8 @@ export class PostService {
         })
       );
   }
+
+  loadEditData(id:any){
+    return this.fs.doc(`posts/${id}`).valueChanges();
+  }
 }
