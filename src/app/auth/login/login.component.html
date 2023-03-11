@@ -3,17 +3,28 @@
     <div class=" w-[500px] bg-secondary flex flex-col gap-2 p-8 shadow-md">
       <h1 class="text-2xl font-black text-center text-primary drop-shadow-2xl">Login</h1>
       <p class="text-sm text-center text-primary mb-4">Please login to your admin account to post a blog</p>
-      <div class="flex flex-col gap-3">
-        <div class="relative">
-          <input class="rounded outline-none border-[1px] px-6 py-2 shadow w-full" placeholder="Email Address" autocomplete="off" name="email" type="email">
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)" class="flex flex-col gap-3 transition-all duration-500">
+        <div class="relative transition duration-500">
+          <input ngModel #Email="ngModel" class="rounded outline-none border-[1px] px-6 py-2 shadow w-full"
+            placeholder="Email Address" autocomplete="off" name="email" type="email" required email>
           <!-- <label class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2" for="email">Email Address</label> -->
+          <div *ngIf="Email.touched && Email.invalid"
+            class="transition duration-500 px-4 py-1 mt-2 text-red-600 font-bold">
+            <span *ngIf="Email.errors?.['required']"><i class="fa-solid fa-circle-exclamation"></i> Email is required</span>
+            <span *ngIf="Email.errors?.['email']"><i class="fa-solid fa-circle-exclamation"></i> Enter a valid email</span>
+          </div>
         </div>
         <div class="relative">
-          <input class="rounded outline-none border-[1px] px-6 py-2 shadow w-full" placeholder="Password" autocomplete="off" name="password" type="password">
+          <input ngModel #Password="ngModel" class="rounded outline-none border-[1px] px-6 py-2 shadow w-full"
+            placeholder="Password" autocomplete="off" name="password" type="password" required>
           <!-- <label class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2" for="password">Password</label> -->
+          <div *ngIf="Password.touched && Password.invalid"
+            class="transition duration-500 px-4 py-1 mt-2 text-red-600 font-bold"><i
+              class="fa-solid fa-circle-exclamation"></i> Password is required</div>
         </div>
-        <button class="rounded shadow-md px-4 py-2 bg-primary text-nav">LogIn</button>
-      </div>
+        <button [disabled]="loginForm.invalid"
+          class="rounded shadow-md px-4 py-2 bg-primary text-nav font-bold">LogIn</button>
+      </form>
     </div>
   </div>
 </section>
