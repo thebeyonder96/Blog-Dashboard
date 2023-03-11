@@ -4,8 +4,10 @@
       <h1 class="font-bold text-2xl md:text-5xl text-center"> All Blog post</h1>
       <p class=" text-center">You can manage your posts here</p>
       <div class="flex items-center gap-5 justify-center my-4">
-        <button routerLink="/posts/new" class="px-10 py-2 bg-primary text-secondary font-bold rounded">Add new post</button>
-        <button routerLink="/" class="px-10 py-2 bg-yellow-600 text-secondary font-bold rounded">Back to dashboard</button>
+        <button routerLink="/posts/new" class="px-10 py-2 bg-primary text-secondary font-bold rounded">Add new
+          post</button>
+        <button routerLink="/" class="px-10 py-2 bg-yellow-600 text-secondary font-bold rounded">Back to
+          dashboard</button>
       </div>
     </div>
 
@@ -21,17 +23,24 @@
       </div>
       <div *ngFor="let post of postArray;index as i" class="flex items-center px-6 py-4 shadow">
         <div class="items-center justify-center gap-2 p-2 border-r flex-1 font-bold">{{i+1}}</div>
-        <div class="items-center justify-center gap-2 p-2 border-r flex-[3]"><img src="{{post.data.postImgPath}}" class="p-4 w-[320px] h-[200px] object-cover object-center shadow-md"></div>
+        <div class="items-center justify-center gap-2 p-2 border-r flex-[3]"><img src="{{post.data.postImgPath}}"
+            class="p-4 w-[320px] h-[200px] object-cover object-center shadow-md"></div>
         <div class="items-center justify-center gap-2 p-2 border-r flex-[3]">{{post.data.title}}</div>
         <div class="items-center justify-center gap-2 p-2 border-r flex-[4] truncate">{{post.data.excerpt}}</div>
         <div class="items-center justify-center gap-2 p-2 border-r flex-[2]">{{post.data.category.category}}</div>
-        <div class="items-center justify-center gap-2 p-2 border-r flex-[2]">{{post.data.createdAt.toMillis() | date}}</div>
+        <div class="items-center justify-center gap-2 p-2 border-r flex-[2]">{{post.data.createdAt.toMillis() | date}}
+        </div>
         <div class="items-center justify-center gap-2 p-2 border-r flex[1]">
           <div class="grid place-items-center gap-2">
-            <button routerLink="/posts/new" [queryParams]="{id: post.id}" class="w-[120px] bg-yellow-500 text-nav font-bold px-4 py-2 mx-2 rounded"><i
-                class="fa-solid fa-pen-to-square"></i>&nbsp; Edit</button>
-            <button class="w-[120px] bg-red-500 text-nav font-bold px-4 py-2 mx-2 rounded"><i
+            <button routerLink="/posts/new" [queryParams]="{id: post.id}"
+              class="w-[150px] bg-yellow-600 text-nav font-bold px-4 py-2 mx-2 rounded"><i
+                class="fa-solid fa-pen-to-square"></i>&nbsp; &nbsp;Edit&nbsp; &nbsp;</button>
+            <button (click)="onDelete(post.data.postImgPath,post.id)" class="w-[150px] bg-red-700 text-nav font-bold px-4 py-2 mx-2 rounded"><i
                 class="fa-solid fa-trash"></i>&nbsp; Delete</button>
+            <button (click)="onFeatured(post.id,true)" *ngIf="!post.data.isFeatured" class="w-max bg-emerald-700 text-nav font-bold px-4 py-2 mx-2 rounded">
+               Mark Featured</button>
+            <button (click)="onFeatured(post.id,false)" *ngIf="post.data.isFeatured" class="w-[150px] bg-red-700 text-nav font-bold px-4 py-2 mx-2 rounded">
+             Remove Featured </button>
           </div>
         </div>
       </div>

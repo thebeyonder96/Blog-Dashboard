@@ -4,72 +4,103 @@
       <h1 class="font-bold text-2xl md:text-5xl text-center"> {{formStatus}} post</h1>
       <p class=" text-center">You can {{formStatus}} your new posts here</p>
 
-      <form [formGroup]="postForm" class="mt-4 md:mt-6" #categoryForm='ngForm' (ngSubmit)="onSubmit()">
-        <div class="grid">
-          <label class="px-4 font-bold py-1" for="">Title</label>
-          <input formControlName="title" (keyup)="onTitleChange($event)" class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" type="text">
-          <!-------------------------------------------- New Reactive Form Validation  --------------------------------------------------->
-          <div *ngIf="fc['title'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['title'].touched && fc['title'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Title is required</span>
+
+      <div *ngIf="postForm">
+        <form [formGroup]="postForm" class="mt-4 md:mt-6" #categoryForm='ngForm' (ngSubmit)="onSubmit()">
+          <div class="grid">
+            <label class="px-4 font-bold py-1" for="">Title</label>
+            <input formControlName="title" (keyup)="onTitleChange($event)"
+              class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" type="text">
+            <!-------------------------------------------- New Reactive Form Validation  --------------------------------------------------->
+            <div *ngIf="fc['title'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['title'].touched && fc['title'].invalid"><i class="fa-solid fa-circle-exclamation"></i>
+                Title is
+                required</span>
+            </div>
+            <div *ngIf="fc['title'].errors?.['minlength']" class="px-6 py-1 mt-2 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['title'].touched && fc['title'].invalid"><i class="fa-solid fa-circle-exclamation"></i>
+                Minimum 10
+                required</span>
+            </div>
           </div>
-          <div *ngIf="fc['title'].errors?.['minlength']" class="px-6 py-1 mt-2 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['title'].touched && fc['title'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Minimum 10 required</span>
+          <div class="grid">
+            <label class="px-4 font-bold py-1" for="">Permalink</label>
+            <input formControlName="permalink" [(ngModel)]="permaLink" name="permalink"
+              class="pointer-events-none outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow"
+              type="text">
           </div>
-        </div>
-        <div class="grid">
-          <label class="px-4 font-bold py-1" for="">Permalink</label>
-          <input formControlName="permalink" [(ngModel)]="permaLink" name="permalink" class="pointer-events-none outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" type="text">
-        </div>
-        <div class="grid">
-          <label class="px-4 font-bold py-1" for="">Excerpt</label>
-          <textarea formControlName="excerpt" class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" name="" id="" cols="30" rows="3"></textarea>
-          <div *ngIf="fc['excerpt'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['excerpt'].touched && fc['excerpt'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Excerpt is
-              required</span>
+          <div class="grid">
+            <label class="px-4 font-bold py-1" for="">Excerpt</label>
+            <textarea formControlName="excerpt"
+              class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" name=""
+              id="" cols="30" rows="3"></textarea>
+            <div *ngIf="fc['excerpt'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['excerpt'].touched && fc['excerpt'].invalid"><i
+                  class="fa-solid fa-circle-exclamation"></i>
+                Excerpt is
+                required</span>
+            </div>
+            <div *ngIf="fc['excerpt'].errors?.['minlength']" class="px-6 py-1 mt-2 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['excerpt'].touched && fc['excerpt'].invalid"><i
+                  class="fa-solid fa-circle-exclamation"></i>
+                Minimum 50
+                required</span>
+            </div>
           </div>
-          <div *ngIf="fc['excerpt'].errors?.['minlength']" class="px-6 py-1 mt-2 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['excerpt'].touched && fc['excerpt'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Minimum 50
-              required</span>
+          <div class="grid">
+            <label class="px-4 font-bold py-1" for="">Please select a category</label>
+            <select formControlName="category"
+              class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow">
+              <option disabled
+                class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow">
+                Choose a category</option>
+              <option *ngFor="let item of categories"
+                class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow"
+                value="{{item.id}}-{{item.data.category}}">{{item.data.category}}</option>
+            </select>
+            <div *ngIf="fc['category'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['category'].touched && fc['category'].invalid"><i
+                  class="fa-solid fa-circle-exclamation"></i>Please select a category </span>
+            </div>
           </div>
-        </div>
-        <div class="grid">
-          <label class="px-4 font-bold py-1" for="">Please select a category</label>
-          <select formControlName="category" class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow">
-            <option disabled class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" >Choose a category</option>
-            <option *ngFor="let item of categories" class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" value="{{item.id}}-{{item.data.category}}">{{item.data.category}}</option>
-          </select>
-          <div *ngIf="fc['category'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['category'].touched && fc['category'].invalid"><i class="fa-solid fa-circle-exclamation"></i>Please select a category </span>
+          <div class="grid">
+            <label class="px-4 font-bold py-1" for="">Post Image</label>
+            <img [src]="imageSrc" class="h-[320px] px-6 py-1 mb-2 mx-2 shadow">
+            <input formControlName="postimg" (change)="showPreview($event)" type="file" accept="Image/*"
+              class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow">
+            <div *ngIf="fc['postimg'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['postimg'].touched && fc['postimg'].invalid"><i
+                  class="fa-solid fa-circle-exclamation"></i> Image
+                is
+                required</span>
+            </div>
           </div>
-        </div>
-        <div class="grid">
-          <label class="px-4 font-bold py-1" for="">Post Image</label>
-          <img [src]="imageSrc" class="h-[320px] px-6 py-1 mb-2 mx-2 shadow">
-          <input formControlName="postimg" (change)="showPreview($event)" type="file" accept="Image/*"  class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow">
-          <div *ngIf="fc['postimg'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['postimg'].touched && fc['postimg'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Image is
-              required</span>
+          <div class="grid">
+            <label class="px-4 font-bold py-1" for="">Content</label>
+            <!-- <textarea class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" name="" id="" cols="30" rows="10"></textarea> -->
+            <angular-editor height="100px" formControlName="content"
+              class="outline-none px-6 py-5 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow"></angular-editor>
+            <div *ngIf="fc['content'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
+              <span *ngIf="fc['content'].touched && fc['content'].invalid"><i
+                  class="fa-solid fa-circle-exclamation"></i>
+                Content is
+                required</span>
+            </div>
           </div>
-        </div>
-        <div class="grid">
-          <label class="px-4 font-bold py-1" for="">Content</label>
-          <!-- <textarea class="outline-none px-6 py-1 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow" name="" id="" cols="30" rows="10"></textarea> -->
-          <angular-editor height="100px" formControlName="content" class="outline-none px-6 py-5 mb-2 mx-2 w-[60%] md:w-[100%] border-2  md:py-2 rounded shadow"></angular-editor>
-          <div *ngIf="fc['content'].errors?.['required']" class="px-6 py-1 mb-2 mx-2 text-red-600 font-bold">
-            <span *ngIf="fc['content'].touched && fc['content'].invalid"><i class="fa-solid fa-circle-exclamation"></i> Content is
-              required</span>
+          <div class="flex items-center  gap-5 justify-center my-4">
+            <button *ngIf="postForm.invalid;else success" [disabled]="postForm.invalid"
+              class="px-10 py-2 bg-[#02646793] text-secondary font-bold rounded">{{formStatus}} Post</button>
+            <ng-template #success>
+              <button class="bg-primary text-secondary text-xs md:text-base px-10 py-2 mt-2 md:py-2 rounded shadow-md">
+                {{formStatus}} Category
+              </button>
+            </ng-template>
+            <button routerLink="/posts" class="px-10 py-2 bg-yellow-600 text-secondary font-bold rounded">Back to
+              Post</button>
           </div>
-        </div>
-        <div class="flex items-center  gap-5 justify-center my-4">
-          <button *ngIf="postForm.invalid;else success" [disabled]="postForm.invalid" class="px-10 py-2 bg-[#02646793] text-secondary font-bold rounded">Save Post</button>
-          <ng-template #success>
-            <button class="bg-primary text-secondary text-xs md:text-base px-10 py-2 mt-2 md:py-2 rounded shadow-md">
-              Add Category
-            </button>
-          </ng-template>
-          <button routerLink="/posts" class="px-10 py-2 bg-yellow-600 text-secondary font-bold rounded">Back to Post</button>
-        </div>
-      </form>
+        </form>
+      </div>
+
     </div>
   </div>
 </section>
