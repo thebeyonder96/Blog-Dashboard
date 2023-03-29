@@ -21,7 +21,7 @@
         <div class="justify-center flex-[2]">Date</div>
         <div class="justify-center flex[1]">Actions</div>
       </div>
-      <div *ngFor="let post of postArray;index as i" class="flex items-center px-6 py-4 shadow">
+      <div *ngFor="let post of postArray;index as i" class="grid md:flex items-center px-6 py-4 shadow">
         <div class="items-center justify-center gap-2 p-2 border-r flex-1 font-bold">{{i+1}}</div>
         <div class="items-center justify-center gap-2 p-2 border-r flex-[3]"><img src="{{post.data.postImgPath}}"
             class="p-4 w-[320px] h-[200px] object-cover object-center shadow-md"></div>

@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  loggedStatus!: boolean;
 
-  constructor(private authService:AuthService){}
+  constructor(private authService: AuthService) {}
+  ngOnInit(): void {
+    this.loggedStatus = this.authService.isLoggedStatus;
+  }
 
-
-  onSubmit(formValues:any){
-   this.authService.logIn(formValues.email,formValues.password)
+  onSubmit(formValues: any) {
+    this.authService.logIn(formValues.email, formValues.password);
   }
 }

@@ -27,17 +27,17 @@
 
   <div>
     <div class="shadow-lg">
-      <div class="flex items-center justify-between px-20 py-5 mb-4 shadow-lg ">
+      <div class="md:flex items-center justify-between px-20 py-5 mb-4 shadow-lg ">
         <h1>No</h1>
         <h1>Category</h1>
         <h1>Action</h1>
       </div>
-      <div *ngFor="let item of categoryArray;index as i" class="flex items-center justify-between px-20 py-3 shadow">
+      <div *ngFor="let item of categoryArray;index as i" class="grid md:flex items-center justify-between px-20 py-3 shadow">
         <p>{{i+1}}</p>
         <p>{{item.data.category}}</p>
         <div>
-          <button (click)="edit(item.data.category,item.id)" class="bg-yellow-500 text-nav font-bold px-4 py-2 mx-2 rounded"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit</button>
-          <button (click)="onDelete(item.id)" class="bg-red-500 text-nav font-bold px-4 py-2 mx-2 rounded"><i class="fa-solid fa-trash"></i>&nbsp; Delete</button>
+          <button (click)="edit(item.data.category,item.id)" class="bg-yellow-500 text-nav font-bold px-4 md:py-2 mr-2 md:mx-2 rounded"><i class="hidden md:block fa-solid fa-pen-to-square"></i>&nbsp; Edit</button>
+          <button (click)="onDelete(item.id)" class="bg-red-500 text-nav font-bold px-4 md:py-2 md:mx-2 rounded"><i class="hidden md:block fa-solid fa-trash"></i>&nbsp; Delete</button>
         </div>
       </div>
     </div>

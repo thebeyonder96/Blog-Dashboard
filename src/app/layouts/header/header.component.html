@@ -3,9 +3,9 @@
   <div routerLink="" class="cursor-pointer flex items-center text-2xl md:text-4xl font-bold tracking-widest drop-shadow-2xl font-logo">
     A<span class="text-red-600 font-logo tracking-widest">K</span>.&nbsp;
   </div>
-  <div class="hidden md:block">
+  <div *ngIf="isLoggedIn$ | async" class="hidden md:block">
     <p class="font-bold drop-shadow-2xl mb-2">{{userEmail}}</p>
-    <button class="bg-secondary border-[1px] border-primary px-4 py-1 shadow text-primary rounded-md transition-all duration-500 hover:scale-105">LogOut</button>
+    <button (click)="onLogout()" class="bg-secondary border-[1px] border-primary px-4 py-1 shadow text-primary rounded-md transition-all duration-500 hover:scale-105">LogOut</button>
   </div>
   <!-- <app-category-navbar class="hidden md:block"></app-category-navbar> -->
   <div (click)="isShow()" class="md:hidden flex items-center cursor-pointer"><i class="fa-solid fa-bars text-2xl"></i>
@@ -27,7 +27,7 @@
       </ul>
       <div class="mt-[100px]">
         <p class="font-bold drop-shadow-2xl mb-2">{{userEmail}}</p>
-        <button
+        <button (click)="onLogout()"
           class="bg-secondary border-[1px] border-primary px-4 py-1 shadow text-primary rounded-md transition-all duration-500 hover:scale-105">LogOut</button>
       </div>
     </div>

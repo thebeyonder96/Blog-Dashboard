@@ -21,6 +21,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './auth/login/login.component';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { SubscribersComponent } from './subscribers/subscribers.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/aut
     AllPostComponent,
     NewPostComponent,
     LoginComponent,
+    SubscribersComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,7 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/aut
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({timeOut:2000}),
     BrowserAnimationsModule,
     AngularEditorModule,
     HttpClientModule,
